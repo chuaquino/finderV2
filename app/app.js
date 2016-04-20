@@ -2,6 +2,7 @@ import {App, IonicApp, Platform, Storage, SqlStorage} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {MainPage} from './pages/main/main';
 import {TabsPage} from './pages/jeepney/tabs/tabs';
+import {RestaurantPage} from './pages/restaurant/restaurant';
 // import {JeepneyRoutesPage} from './pages/jeepney/jeep-routes/jeep-routes';
 // import {ListPage} from './pages/list/list';
 
