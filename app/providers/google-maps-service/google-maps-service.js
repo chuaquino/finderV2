@@ -1,4 +1,4 @@
-import {Storage, SqlStorage, NavController, Alert} from 'ionic-angular';
+import {Storage, SqlStorage, NavController, AlertController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import {Http, URLSearchParams} from '@angular/http';
 import 'rxjs/Rx';
@@ -16,11 +16,12 @@ import {ConnectivityService} from '../../providers/connectivity-service/connecti
 export class GoogleMapsService {
 
   static get parameters(){
-    return [[DataService],[ConnectivityService],[NavController],[Http]];
+    return [[DataService],[ConnectivityService],[NavController],[Http],[AlertController]];
   }
 
-  constructor(dataService,connectivityService,nav,http){
+  constructor(dataService,connectivityService,nav,http,alert){
     this.nav = nav;
+    this.alert = alert;
 
     this.http = http;
 
@@ -318,6 +319,51 @@ loadGoogleMaps(opt){
             colorCodeDiv.style.maxWidth='100%';
             colorCodeDiv.style.width='100%';
 
+            var trans =[{
+              "Angeles City Hall": "アンヘレスシティホール",
+              "Angeles Medical Center Inc.": "Angeles Medical Center Inc.",
+              "Angeles University Foundation": "アンヘレスユニバーシティファウンデーション",
+              "Angeles University Foundation Medical Center": "AUF メディカルセンター",
+              "Anunas": "アヌナス",
+              "Bancal": "バンカル",
+              "Carmenville": "Carmenville",
+              "Citi Center": "シティセンター",
+              "City College of Angeles": "アンヘレスシティ大学",
+              "Cuayan": "Cuayan",
+              "Diamond Subdivision": "ダイアモンドサブディビジョン",
+              "Dr. Amando L. Garcia Medical Center, Inc.": "Dr. Amando L. Garcia Medical Center, Inc.",
+              "Fields Avenue": "フィールズアベニュー",
+              "Friendship": "フレンドシップ",
+              "Friendship Plaza": "フレンドシッププラザ",
+              "Holy Angel University": "ホリーエンジェル大学",
+              "Holy Family Medical Center": "ホリーファミリーメディカルセンター",
+              "Holy Rosary Parish Church": "Holy Rosary Parish Church",
+              "Immaculate Concepcion Parish": "イマキュレートコンセプションパリッシュ",
+              "Jenra Mall": "Jenra Mall",
+              "Lourdes North West": "ルーデスノースウェスト",
+              "Main Gate Terminal": "メインゲートターミナル",
+              "Margot": "マーゴット",
+              "Marisol": "マリソル",
+              "Marquee Mall": "マーキーモール",
+              "Nepo Mall": "Nepo Mall",
+              "Rafael Lazatin Memorial Medical Center": "ラファエルラサティンメモリアルメディカルセンター",
+              "Republic Central Colleges": "リパブリックセントラルコレッジズ",
+              "SM City Clark" : "SMシティクラーク",
+              "Sacred Heart Medical Center": "サクレッドハートメディカルセンター",
+              "Sapang Bato": "サパンベイトー",
+              "Saver\'s Mall": "Saver\'s Mall",
+              "Systems Plus College Foundation": "システムズプラスカレッジファウンデーション",
+              "The Medical City Angeles": "ザメディカルシティ - アンヘレス",
+              "Timog Park Gate 1": "チモグパークゲート1",
+              "Timog Park Gate 2": "チモグパークゲート 2",
+              "Timog Park Gate 3": "チモグパークゲート 3",
+              "Transfer": "トランスファ",
+              "Villa Sol": "Villa Sol",
+
+              "Legend:": "凡例：",
+              "Legends:": "凡例："
+            }];
+
             if (me.latlng2 !==undefined || me.ctr1==='1ride') {
               var divRow1 = document.createElement('div');
               divRow1.className='row';
@@ -331,13 +377,34 @@ loadGoogleMaps(opt){
 
               var index = {};
 
-              // $translate(from).then(function(title1) {
-                  index.from=from;
-              //     return $translate(to);
-              // }).then(function(title2) {
-                  index.to=to;
-                  divCol1.innerHTML = index.from+" - "+index.to;
-              // });
+
+              // // $translate(from).then(function(title1) {
+              //     index.from=from;
+              // //     return $translate(to);
+              // // }).then(function(title2) {
+              //     index.to=to;
+              //     divCol1.innerHTML = index.from+" - "+index.to;
+              // // });
+
+              if (from) {
+                if (navigator.language.split('-')[0]=='jp') {
+                  index.from = trans[0][from];
+                }
+                else {
+                  index.from = data.point;
+                }
+
+              }
+              if (to) {
+                if (navigator.language.split('-')[0]=='jp') {
+                  index.to = trans[0][to];
+                }
+                else {
+                  index.to = data.point;
+                }
+              }
+
+              divCol1.innerHTML = index.from+" - "+index.to;
 
               console.log(index);
               divCol1.style.backgroundColor = 'rgb(255, 255, 255)';
@@ -369,9 +436,19 @@ loadGoogleMaps(opt){
             var divCol2 = document.createElement('div');
             divCol2.className='col col-100';
 
-            // $translate(colorHead).then(function(title) {
-                divCol2.innerHTML=colorHead;
-            // });
+            if (colorHead) {
+              if (navigator.language.split('-')[0]=='jp') {
+                divCol2.innerHTML = trans[0][colorHead];
+              }
+              else {
+                divCol2.innerHTML = colorHead;
+              }
+
+            }
+
+            // // $translate(colorHead).then(function(title) {
+            //     divCol2.innerHTML=colorHead;
+            // // });
             divCol2.id="title";
             divCol2.style.backgroundColor = 'rgb(255, 255, 255)';
             divCol2.style.maxWidth='100%';
@@ -631,7 +708,8 @@ loadGoogleMaps(opt){
   }
 
   locErrMsg(){
-    let alert = Alert.create({
+    var me = this;
+    let alert = me.alert.create({
       title: 'No location found',
       subTitle: 'Please enable your GPS location.',
       buttons: [{
@@ -641,7 +719,7 @@ loadGoogleMaps(opt){
         }
       }]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
   displayLegMark(mark){
@@ -834,8 +912,23 @@ loadGoogleMaps(opt){
     canvas.style.backgroundColor=color;
     divCol.appendChild(canvas);
 
+    var transJeep =[{
+      "CHECK-POINT-HOLY": "チェック-ポイント- ホーリーハイー",
+      "CHECK-POINT-HOLY-HI-WAY": "チェック-ポイント- ホーリーハイー-ウェイ",
+      "CHECK-POINT-HENSONVILLE-HOLY":"チェック-ポイント-ヘンソンヴィル-ホーリー",
+      "PANDAN-PAMPANG":"パンダン-パンパング",
+      "MAINGATE-FRIENDSHIP":"メインゲート-フレンドシップ",
+      "MARISOL-PAMPANG":"マリソル-パンパング",
+      "PAMPANG-HOLY":"パンパング-ホーリー",
+      "PLARIDEL-CAPAYA":"プラリデル-カパヤ",
+      "SUNSET-NEPO":"スンセト-ネポ",
+      "VILLA-PAMPANG":"ビラ-パンパング",
+      "SAPANG BATO-ANGELES":"サパングバトバト-アンヘレス",
+      "Walk through":"通り抜ける"
+    }];
+
     var text = document.createElement('span');
-    text.innerHTML = ' '+jname;
+    text.innerHTML = ' '+transJeep[0][jname];
     divCol.appendChild(text);
 
   }
@@ -1450,8 +1543,9 @@ loadGoogleMaps(opt){
 
   //error message when cennection lost
   disableMap(){
+    var me = this;
     console.log("disable map");
-    let alert = Alert.create({
+    let alert = me.alert.create({
       title: 'No connection',
       subTitle: 'Looks like there is a problem with your network connection. Try again later.',
       buttons: [{
@@ -1461,7 +1555,7 @@ loadGoogleMaps(opt){
         }
       }]
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
 

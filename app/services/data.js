@@ -11,6 +11,7 @@ export class DataService {
         this.insertPoliceData();
         this.insertHospitalData();
 
+
     }
 
     initDB(){
@@ -453,6 +454,7 @@ export class DataService {
 
       }
     }
+
       insertPoliceData(){
         this.police = [{
           name: 'Police Station No. 1',

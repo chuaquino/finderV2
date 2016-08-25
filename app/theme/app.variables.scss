@@ -35,14 +35,18 @@ $ph_map: url("../../img/mainBG/ph_map.png");
 $list-background-color: transparent;
 $toolbar-border-color: #2A7EDD;
 
-//tabs
-$tabbar-ios-background: #2A7EDD;
-$tab-button-ios-active-color: #F7F7F7;
-$tab-button-ios-inactive-color: #a2ccfb;
 
-$tabbar-md-background: #2A7EDD;
-$tab-button-md-active-color: #F7F7F7;
-$tab-button-md-inactive-color: #a2ccfb;
+//tabs
+$tabs-ios-background: #2A7EDD;
+$tabs-ios-border: 1px solid #004eff;
+$tabs-ios-tab-color: #a2ccfb;
+$tabs-ios-tab-color-active: #F7F7F7;
+
+$tabs-md-background: #2A7EDD;
+$tabs-md-tab-color: #a2ccfb;
+$tabs-md-tab-color-active: #F7F7F7;
+
+
 
 //ios searchbar
 $searchbar-ios-input-placeholder-color: #FFFFFF;

@@ -72,7 +72,7 @@ export class MyModal {
       console.log(data.result);
       if(data.res.rows.length > 0) {
         for(var i = 0; i < data.res.rows.length; i++) {
-          if (navigator.language.split('-')[0]=='en') {
+          if (navigator.language.split('-')[0]=='ja') {
             // console.log(this.jp[0][data.res.rows.item(i).text]);
             this.points.push(this.jp[0][data.res.rows.item(i).text]);
           }

@@ -34,6 +34,40 @@ export class PoliceDetailsPage {
   // ionViewDidEnter(){
   //   this.geolocationService.getPolHosp(this.poldetail,'police');
 
+<<<<<<< HEAD
+  ionViewWillEnter(){
+    var me = this;
+    console.log('detail');
+    console.log(document.getElementById('police_map_dtl'));
+    me.geolocationService.setPlaceDetails('police_map_dtl',me.item_select_police.place_id).then(function (res) {
+      console.log(res[0]);
+      console.log('inner');
+      me.results = res[0];
+
+      if (res[0].reviews!==undefined) {
+        me.reviews = res[0].reviews;
+        me.setReviewRating();
+      }
+
+      if (res[0].photos!==undefined) {
+        for (var i = 0; i < res[0].photos.length; i++) {
+          me.photos.push(res[0].photos[i].getUrl({'maxWidth': 300, 'maxHeight': 300}));
+        }
+        console.log(me.photos);
+      }
+      else {
+        me.photos.push(res[0].icon);
+      }
+
+      if (res[0].international_phone_number !== undefined){
+        me.contact = res[0].international_phone_number;
+        me.insertPlaceContact();
+      }
+
+    });
+
+  }
+=======
   // ionViewWillEnter(){
   //   var me = this;
   //   console.log('detail');
@@ -65,6 +99,7 @@ export class PoliceDetailsPage {
   //
   //   });
   // }
+>>>>>>> 2b79b1251d0c2d6a7133a1efa53c4d3e7a243f13
 
   ionViewLoaded(){
     var me = this;

@@ -75,6 +75,7 @@
           </ion-row>
         </button>
       </ion-list>
+
       <ion-infinite-scroll *ngIf="items.length!==0" (ionInfinite)="doInfinite($event)" threshold="100px">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>

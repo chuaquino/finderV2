@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Modal, NavController, Alert} from 'ionic-angular';
+import {Modal, NavController, AlertController, ModalController} from 'ionic-angular';
 import {MyModal} from '../../jeepney/find-routes/modal';
 import {RoutesMapsPage} from '../../jeepney/find-routes/routes.map';
 import {TranslatePipe} from '../../../pipes/translate';
@@ -11,11 +11,14 @@ import {TranslatePipe} from '../../../pipes/translate';
 
 export class FindRoutesPage {
   static get parameters(){
-    return [[NavController]];
+    return [[NavController],[ModalController],[AlertController]];
   }
 
-  constructor(nav){
+  constructor(nav,modal,alert){
     this.nav = nav;
+    this.modal = modal;
+    this.alert = alert;
+
     this.from = 'Choose starting point';
     this.to = 'Choose destination';
 
@@ -24,9 +27,8 @@ export class FindRoutesPage {
     // this.modal = modal;
   }
   showModal(ctr){
-    // this.modal = Modal.create(MyModal);
-    // this.nav.present(this.modal)
-    // alert('ads');
+
+    var me = this;
     var trans = [{
       "アンヘレスシティホール":"Angeles City Hall",
       "Angeles Medical Center Inc.":"Angeles Medical Center Inc.",
@@ -69,13 +71,13 @@ export class FindRoutesPage {
       "Villa Sol":"Villa Sol",
     }];
     console.log(ctr);
-    let profileModal = Modal.create(MyModal, { ctrId: ctr });
-    profileModal.onDismiss(data => {
+    let profileModal = me.modal.create(MyModal, { ctrId: ctr });
+    profileModal.onDidDismiss(data => {
       console.log(data);
       console.log(data!=undefined);
       if (data!=undefined) {
         if (ctr=='from') {
-          if (navigator.language.split('-')[0]=='en') {
+          if (navigator.language.split('-')[0]=='ja') {
             this.from = trans[0][data.point];
           }
           else {
@@ -84,7 +86,7 @@ export class FindRoutesPage {
 
         }
         else if (ctr=='to') {
-          if (navigator.language.split('-')[0]=='en') {
+          if (navigator.language.split('-')[0]=='ja') {
             this.to = trans[0][data.point];
           }
           else {
@@ -96,27 +98,27 @@ export class FindRoutesPage {
 
       // console.log(data.point);
     });
-    this.nav.present(profileModal);
+    profileModal.present();
   }
   submitForm(from,to){
     var me = this;
 
     if(from == 'Choose starting point' || to == 'Choose destination'){
       console.log(from+"-"+to);
-      let alert = Alert.create({
+      let alert = me.alert.create({
         title: 'Alert',
         subTitle: 'Empty Fields! Please select starting point or destination.',
         buttons: ['OK']
       });
-      this.nav.present(alert);
+      alert.present();
     }
     else if (from == to) {
-      let alert = Alert.create({
+      let alert = me.alert.create({
         title: 'Alert',
         subTitle: 'Starting point and destination must not be the',
         buttons: ['OK']
       });
-      this.nav.present(alert);
+      alert.present();
     }
     else if (from == to) {
       me.alertBox('Alert','Starting point and destination must not be the same.');
@@ -182,12 +184,13 @@ export class FindRoutesPage {
 
   }
   alertBox(to){
-    let alert = Alert.create({
+    var me = this;
+    let alert = me.alert.create({
       title: 'Alert',
       subTitle: 'You are just near to '+to+'. You don\'t need to ride a jeepney.',
       buttons: ['OK']
     });
-    this.nav.present(alert);
+    alert.present();
   }
 
 

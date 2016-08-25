@@ -1,4 +1,4 @@
-import {NavController,Alert} from 'ionic-angular';
+import {NavController,AlertController} from 'ionic-angular';
 import {Injectable, Inject} from '@angular/core';
 import {Http} from '@angular/http';
 import {ConnectivityService} from '../../providers/connectivity-service/connectivity-service';
@@ -6,15 +6,16 @@ import {MainPage} from '../../pages/main/main';
 @Injectable()
 export class GeolocationService {
   static get parameters(){
-    return [[ConnectivityService],[NavController]];
+    return [[ConnectivityService],[NavController],[AlertController]];
   }
-  constructor(connectivityService,nav) {
+  constructor(connectivityService,nav,alert) {
     this.connectivity = connectivityService;
     this.mapInitialised = false;
     this.apiKey = 'AIzaSyD4zGo9cejtd83MbUFQL8YU71b8_A5XZpc';
     // this.loadGeolocation();
     this.latlng = {};
     this.nav = nav;
+    this.alert = alert;
     this.MainPage  = MainPage;
     this.map = null;
     // this.getPlaces();
@@ -80,7 +81,10 @@ export class GeolocationService {
     var me = this;
     var items = [];
     var a = 1;
-    var p1 = new google.maps.LatLng(pageDetails.geoloc.lat, pageDetails.geoloc.lng)
+    var p1 = new google.maps.LatLng(pageDetails.geoloc.lat, pageDetails.geoloc.lng);
+
+    var str1,str2;
+
     me.getPlaces(pageDetails, function(result,status, pagination){
       console.log(pageDetails.geoloc.lat);
       console.log(pageDetails.geoloc.lng);
@@ -97,6 +101,13 @@ export class GeolocationService {
               if (result[m].rating===undefined) {
                 result[m].rating = 0;
               }
+
+              for (var i = 0; i < result[m].types.length; i++) {
+                str1 = result[m].types[i];
+                str2 = str1.replace(/_/g, ' ');
+                result[m].types[i] = str2;
+              }
+
             }
           // }
         // }
@@ -152,7 +163,7 @@ export class GeolocationService {
         // }else {
           resolve(geo); // After 3 seconds, resolve the promise with value 42
         // }
-      }, 500);
+      }, 1000);
     });
   }
   //listener when online or offline
@@ -349,7 +360,7 @@ export class GeolocationService {
         // console.log(place.icon);
         if (place.reviews !== undefined){
           for (var i = 0; i < place.reviews.length; i++) {
-            if (navigator.language=='ja-JP') {
+            if (navigator.language.split('-')[0]=='ja') {
               place.reviews[i].newTime = new Date(place.reviews[i].time*1000).toLocaleDateString('ja-JP');
             }
             else {
@@ -420,14 +431,16 @@ export class GeolocationService {
   netErrMsg(){
     var me = this;
     console.log("disable map");
-    let alert = Alert.create({
+    let alert = me.alert.create({
       title: 'No connection',
       subTitle: 'Looks like there is a problem with your network connection. Try again later.',
       buttons: [{
         text: 'OK'
       }]
     });
-    me.nav.present(alert);
+
+    alert.present();
+
   }
 }
 // import {NavController,Alert} from 'ionic-angular';

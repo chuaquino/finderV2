@@ -15,11 +15,11 @@ export class UniDetailPage {
     return [[NavController],[NavParams],[GeolocationService]];
   }
 
-  constructor(nav,navParams,geolocationService) {
-    this.geolocationService = geolocationService;
-    this.UniMapPage = UniMapPage;
+  constructor(nav,navParams,geolocationService) {  
     this.nav = nav;
     this.navParams = navParams;
+    this.geolocationService = geolocationService;
+    this.UniMapPage = UniMapPage;
     this.item_select = this.navParams.get('item_select');
     this.page = navParams.get('page');
     console.log(this.item_select);

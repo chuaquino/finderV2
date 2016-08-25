@@ -23,7 +23,7 @@
       </ion-row>
 
       <ion-row>
-          <span id="place_contact"></span>
+        <span id="place_contact"></span>
       </ion-row>
 
       <ion-row>
@@ -63,17 +63,13 @@
     </ion-grid>
     <ion-list class="list_reviews">
       <ion-list-header class="list_review_header">
-        Reviews
+        {{'Reviews'|translate}}
       </ion-list-header>
       <ion-item *ngFor="let review of reviews" class="review_item_list">
         <ion-row>
           <ion-col width-50>
             <h3 style="font-weight:500;">{{review.author_name}}</h3>
-<<<<<<< HEAD
-            <span class="review_time">{{review.newTime}}</span>
-=======
             <p class="review_text">{{review.newTime}}</p>
->>>>>>> 8a90c61f8b97420594ed46189f56b0f66d951071
           </ion-col>
           <ion-col width-50 style="padding:0% 1%;">
             <span class="review_rating"></span>

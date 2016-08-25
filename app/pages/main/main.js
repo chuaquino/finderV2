@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Storage, SqlStorage, NavParams, NavController,Alert} from 'ionic-angular';
+import {Storage, SqlStorage, NavParams, NavController,AlertController} from 'ionic-angular';
 import {TabsPage} from '../jeepney/tabs/tabs';
 
 
@@ -23,16 +23,16 @@ import {TranslatePipe} from '../../pipes/translate';
 
 export class MainPage{
   static get parameters(){
-    return [[DataService],[GeolocationService],[NavParams],[NavController]];
+    return [[DataService],[GeolocationService],[NavParams],[NavController],[AlertController]];
   }
-  constructor(dataService,geolocationService,navParams,nav) {
+  constructor(dataService,geolocationService,navParams,nav,alert) {
     //database service
     this.dataService = dataService;
     this.geolocationService = geolocationService;
     this.navParams = navParams;
     this.nav = nav;
+    this.alert = alert;
     this.TabsPage = TabsPage;
-    
 
     this.details = navParams.get('geoloc');
     console.log(this.details);
@@ -95,7 +95,8 @@ export class MainPage{
   }
 
   locErrMsg(){
-    let alert = Alert.create({
+    var me = this;
+    let alert = me.alert.create({
       title: 'No location found',
       subTitle: 'Please enable your GPS location.',
       buttons: [{
@@ -105,7 +106,7 @@ export class MainPage{
         }
       }]
     });
-    this.nav.present(alert);
+    alert.present();
     document.getElementById('mainBtnLoc').style.display = "inline";
     document.getElementById('mainLoaderLoc').style.display = "none";
   }

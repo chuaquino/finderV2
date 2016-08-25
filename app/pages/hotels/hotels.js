@@ -88,6 +88,16 @@ export class HotelsPage {
       });
     }
 
+<<<<<<< HEAD
+
+        }
+          console.log(me.items);
+        me.setHotelRating();
+        if (document.getElementById('loading')!==null) {
+          document.getElementById('loading').style.display="none";
+        }
+      }, 2000);
+=======
   }
 
   displayDetails(ctr){
@@ -105,6 +115,7 @@ export class HotelsPage {
 
       console.log(me.results);
       me.nav.push(HotelDetailsPage, {item_select_hotel:me.results});
+>>>>>>> 2b79b1251d0c2d6a7133a1efa53c4d3e7a243f13
     });
 
   }
