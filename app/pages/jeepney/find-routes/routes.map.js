@@ -4,10 +4,13 @@ import {GoogleMapsService} from '../../../providers/google-maps-service/google-m
 import {DataService} from '../../../services/data';
 import {LoadingModal} from '../../../components/loading-modal/loading-modal';
 
+import {TranslatePipe} from '../../../pipes/translate';
+
 @Component({
   templateUrl: 'build/pages/jeepney/find-routes/routes.map.html',
   directives: [LoadingModal],
-  providers: [GoogleMapsService]
+  providers: [GoogleMapsService],
+  pipes: [TranslatePipe]
 })
 
 export class RoutesMapsPage {

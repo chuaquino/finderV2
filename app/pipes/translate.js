@@ -118,6 +118,14 @@ export class TranslatePipe {
       "Jeepneys":"ジープニー",
       "Jeepney Routes":"ジープニー経路",
 
+      "Legend":"画讃",
+      "Church":"教会",
+      "City Hall":"シティーホール",
+      "Mall":"モール",
+      "School":"学校",
+      "Subdivision":"サブディビジョン",
+      "Terminal":"ターミナル",
+
       "Place Type":"場所の種類",
       "Cuisine":"料理",
       "Sort":"並べ替え",
@@ -161,10 +169,10 @@ export class TranslatePipe {
 
 
 
-
     }];
-
+    console.log('language is'+navigator.language.split('-')[0]);
     if (navigator.language.split('-')[0]=='ja') {
+      console.log('japanese');
       console.log(jp);
       newValue = jp[0][value];
       console.log(newValue);
@@ -172,6 +180,7 @@ export class TranslatePipe {
       return newValue;
     }
     else {
+      console.log('english');
       return value;
     }
 

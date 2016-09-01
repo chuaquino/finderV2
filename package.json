@@ -36,7 +36,13 @@
     "cordova-plugin-geolocation",
     "cordova-plugin-splashscreen",
     "cordova-plugin-inappbrowser",
+<<<<<<< HEAD
     "cordova-plugin-whitelist",
+=======
+    "cordova-sqlite-storage",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-network-information",
+>>>>>>> 9a6a6b69e60283123704ce89a2652270269201d6
     "cordova-plugin-compat"
   ],
   "cordovaPlatforms": [

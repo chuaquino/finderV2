@@ -387,20 +387,20 @@ loadGoogleMaps(opt){
               // // });
 
               if (from) {
-                if (navigator.language.split('-')[0]=='jp') {
+                if (navigator.language.split('-')[0]=='ja') {
                   index.from = trans[0][from];
                 }
                 else {
-                  index.from = data.point;
+                  index.from = from;
                 }
 
               }
               if (to) {
-                if (navigator.language.split('-')[0]=='jp') {
+                if (navigator.language.split('-')[0]=='ja') {
                   index.to = trans[0][to];
                 }
                 else {
-                  index.to = data.point;
+                  index.to = to;
                 }
               }
 
@@ -437,7 +437,7 @@ loadGoogleMaps(opt){
             divCol2.className='col col-100';
 
             if (colorHead) {
-              if (navigator.language.split('-')[0]=='jp') {
+              if (navigator.language.split('-')[0]=='ja') {
                 divCol2.innerHTML = trans[0][colorHead];
               }
               else {

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, NavParams, Alert} from 'ionic-angular';
+import {NavController, NavParams, AlertController} from 'ionic-angular';
 import {Geolocation,InAppBrowser} from 'ionic-native';
 import {GeolocationService} from '../../providers/geolocation-service/geolocation-service';
 import {UniMapPage} from '../uni-map-page/uni-map-page';
@@ -12,13 +12,14 @@ import {TranslatePipe} from '../../pipes/translate';
 })
 export class UniDetailPage {
   static get parameters() {
-    return [[NavController],[NavParams],[GeolocationService]];
+    return [[NavController],[NavParams],[GeolocationService],[AlertController]];
   }
 
-  constructor(nav,navParams,geolocationService) {  
+  constructor(nav,navParams,geolocationService,alert) {
     this.nav = nav;
     this.navParams = navParams;
     this.geolocationService = geolocationService;
+    this.alert = alert;
     this.UniMapPage = UniMapPage;
     this.item_select = this.navParams.get('item_select');
     this.page = navParams.get('page');
@@ -31,37 +32,6 @@ export class UniDetailPage {
     this.disable = null;
   }
 
-//   ionViewWillEnter(){
-//     var me = this;
-//     console.log('detail');
-//     console.log(document.getElementById('resto_map_dtl'));
-//
-//     me.geolocationService.setPlaceDetails('resto_map_dtl',me.item_select.place_id).then(function (res) {
-//       console.log(res[0]);
-//       console.log('inner');
-//       me.results = res[0];
-//
-//       if (res[0].reviews!==undefined) {
-//         me.reviews = res[0].reviews;
-//         me.setReviewRating();
-//       }
-//
-//       if (res[0].photos!==undefined) {
-//         for (var i = 0; i < res[0].photos.length; i++) {
-//           me.photos.push(res[0].photos[i].getUrl({'maxWidth': 300, 'maxHeight': 300}));
-//         }
-//         console.log(me.photos);
-//       }
-//       else {
-//         me.photos.push(res[0].icon);
-//       }
-//
-//       me.contact = res[0].international_phone_number;
-//       me.insertPlaceContact();
-//
-//     });
-//   }
-//
   ionViewLoaded() {
 
     var me = this;
@@ -146,7 +116,7 @@ export class UniDetailPage {
   }
 
   launchWebsite(url){
-
+    var me = this;
     var link = url;
     var w = document.getElementById('website_btn');
 
@@ -158,17 +128,14 @@ export class UniDetailPage {
     }
     else{
       console.log("Website not available");
-      let alert = Alert.create({
+      let alert = me.alert.create({
         title: 'Website not Available',
         subTitle: 'This oraganization has no Website Information',
         buttons: [{
           text: 'OK',
-          handler: data => {
-            this.nav.pop();
-          }
         }]
       });
-      this.nav.present(alert);
+      alert.present();
     }
   }
 

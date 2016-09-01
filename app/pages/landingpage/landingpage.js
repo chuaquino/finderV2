@@ -27,7 +27,7 @@ export class LandingPage {
   ionViewWillEnter(){
     var me = this;
     me.geolocationService.loadGeolocation();
-  }  
+  }
   autocomplete(searchbar){
     var me = this;
     me.geolocationService.autoComplete('landingpage');

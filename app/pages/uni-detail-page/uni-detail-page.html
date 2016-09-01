@@ -33,40 +33,50 @@
       </ion-row>
 
       <ion-row class="details_btn">
-        <ion-col width-50 class="hours_row">
+        <ion-col width-25>
+          <span id="operating_hours"></span>
+        </ion-col>
+
+        <ion-col width-25></ion-col>
+
+        <ion-col width-25 style="text-align:center;">
+          <button clear  [navPush]="UniMapPage" [navParams]="{item_coordinates:item_select,page:page}" class="unidetail_btn">
+            <ion-icon name="marker"></ion-icon>
+          </button>
+          <span style="font-size:9pt; color: #B7B7B7;">{{'Map' | translate}}</span>
+        </ion-col>
+
+        <ion-col width-25 style="text-align:center;">
+          <button clear (click)="launchWebsite(item_select.website)" class="unidetail_btn">
+            <ion-icon name="website"></ion-icon>
+          </button>
+          <span style="font-size:9pt; color: #B7B7B7;">{{'Website' | translate}}</span>
+        </ion-col>
+        <!-- <ion-col width-50 class="hours_row">
           <span id="operating_hours"></span>
         </ion-col>
 
         <ion-col width-50>
           <ul id="item_buttons">
             <li class="item_buttons_li">
-              <button clear [navPush]="[UniMapPage, {item_coordinates:item_select,page:page}]">
+              <button clear [navPush]="UniMapPage" [navParams]="{item_coordinates:item_select,page:page}">
                 <span class="icoMoon-marker"></span>
               </button><br/>
               <span style="font-size:9pt; color: #B7B7B7;">{{'Map'|translate}}</span>
             </li>
             <li class="item_buttons_li">
-              <!-- <button clear>
-                <span class="icoMoon-website"></span>
-              </button><br/> -->
               <button clear (click)="launchWebsite(item_select.website)">
                 <span class="icoMoon-website"></span>
               </button>
               <span style="font-size:9pt; color: #B7B7B7;">{{'Website'|translate}}</span>
             </li>
-            <!-- <li class="item_buttons_li">
-              <button clear>
-                <span class="icoMoon-review"></span><br/>
-                <span style="font-size:9pt;">Review</span>
-              </button>
-            </li> -->
           </ul>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
     <ion-list class="list_reviews">
       <ion-list-header class="list_review_header">
-        Reviews
+        {{'Reviews'|translate}}
       </ion-list-header>
       <ion-item *ngFor="let review of reviews" class="review_item_list">
         <ion-row>

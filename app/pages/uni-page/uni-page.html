@@ -51,8 +51,8 @@
             <span class="sort_label">{{'Sort'|translate}}</span>
             <ion-item class="slct sort">
               <ion-label class="input_lbl">{{'Sort'|translate}}</ion-label>
-              <ion-select (ionChange)="updateSort($event)" class="drpdown_nc" okText="OK" cancelText="{{'Cancel'|translate}}">
-                <ion-option *ngFor="let sort_item of sort_items" value="{{sort_item.value}}" selected="{{sort_item.checked}}">{{sort_item.text|translate}} </ion-option>
+              <ion-select [(ngModel)]="sort" (ionChange)="updateSort($event)" class="drpdown_nc" okText="OK" cancelText="{{'Cancel'|translate}}">
+                <ion-option  *ngFor="let sort_item of sort_items" value="{{sort_item.value}}">{{sort_item.text|translate}} </ion-option>
               </ion-select>
             </ion-item>
           </ion-col>

@@ -116,7 +116,7 @@ export class UniPage {
   ionViewWillEnter(){
     var me = this;
     me.params.geoloc = this.details;
-    this.sort = me.sort;
+    this.sort = 'Distance';
 
 
     if(me.page =='resto'){
@@ -166,7 +166,7 @@ export class UniPage {
           }
             console.log(me.items);
           me.setRating();
-          me.sortItems(me.sort);
+          // me.sortItems(me.sort);
           if (document.getElementById('loading')!==null) {
             document.getElementById('loading').style.display="none";
           }
@@ -298,13 +298,15 @@ export class UniPage {
     });
   }
 
-  updateSort(){
+  updateSort(evt){
+    console.log('enter '+evt);
     var me = this;
     me.setRating();
-    me.sortItems(me.sort);
+    me.sortItems(evt);
   }
 
   sortItems(sortVal){
+    console.log(sortVal);
     var me = this;
     if (sortVal == 'Alphabetically') {
       me.items.sort(function(a,b) {

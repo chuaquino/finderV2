@@ -103,10 +103,21 @@ export class FindRoutesPage {
   submitForm(from,to){
     var me = this;
 
+    var transTitle;
+
+    if (navigator.language.split('-')[0]=='ja') {
+      transTitle = "アラート";
+    }
+    else {
+      transTitle = "Alert";
+    }
+
+
+
     if(from == 'Choose starting point' || to == 'Choose destination'){
       console.log(from+"-"+to);
       let alert = me.alert.create({
-        title: 'Alert',
+        title: transTitle,
         subTitle: 'Empty Fields! Please select starting point or destination.',
         buttons: ['OK']
       });
@@ -114,7 +125,7 @@ export class FindRoutesPage {
     }
     else if (from == to) {
       let alert = me.alert.create({
-        title: 'Alert',
+        title: transTitle,
         subTitle: 'Starting point and destination must not be the',
         buttons: ['OK']
       });
@@ -165,10 +176,10 @@ export class FindRoutesPage {
     else if (from== 'Nepo Mall'&&to == 'Jenra Mall') {
       me.alertBox(to);
     }
-    else if (from == "Diamond Subdivision"&&to =="Savers Mall") {
+    else if (from == "Diamond Subdivision"&&to =="Saver\'s Mall") {
       me.alertBox(to);
     }
-    else if (from == "Savers Mall"&&to =="Diamond Subdivision") {
+    else if (from == "Saver\'s Mall"&&to =="Diamond Subdivision") {
       me.alertBox(to);
     }
     else if (from == "Timog Park Gate 1"&&to =="Carmenville") {
@@ -183,11 +194,43 @@ export class FindRoutesPage {
     }
 
   }
+
   alertBox(to){
+    var transTitle,subtitle;
+    var alertTrans = [{
+      "You are just near to Marquee Mall. You don\'t need to ride a jeepney.":"マーキーモールが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to SM City Clark. You don\'t need to ride a jeepney.":"SMシティクラークが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Main Gate Terminal. You don\'t need to ride a jeepney.":"メインゲートターミナルが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Angeles University Foundation. You don\'t need to ride a jeepney.":"アンヘレス大学財団が近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Angeles University Foundation Medical Center. You don\'t need to ride a jeepney.":"アンヘレス大学財団医療センターが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Holy Rosary Parish Church. You don\'t need to ride a jeepney.":"ホーリーロザリオ教区教会が近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Holy Angel University. You don\'t need to ride a jeepney.":"ホーリーエンジェル大学が近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Systems Plus College Foundation. You don\'t need to ride a jeepney.":"システムプラスカレッジ財団が近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Immaculate Concepcion Parish. You don\'t need to ride a jeepney.":"無原罪のお宿りの教区が近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Timog Park Gate 3. You don\'t need to ride a jeepney.":"Timogパークゲート 3が近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Friendship Plaza. You don\'t need to ride a jeepney.":"フレンドシッププラザが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Nepo Mall. You don\'t need to ride a jeepney.":"ネポモールが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Jenra Mall. You don\'t need to ride a jeepney.":"ジェンラモールが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Angeles City Hall. You don\'t need to ride a jeepney.":"アンヘレス市ホールが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Saver\'s Mall. You don\'t need to ride a jeepney.":"セーバーのモールが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Diamond Subdivision. You don\'t need to ride a jeepney.":"ダイヤモンド区が近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Carmenville. You don\'t need to ride a jeepney.":"カルメンヴィルが近くにあります。ジープニーに乗る必要はありません。",
+      "You are just near to Timog Park Gate 1. You don\'t need to ride a jeepney.":"Timogパークゲート1が近くにあります。ジープニーに乗る必要はありません。"
+    }];
+
+    if (navigator.language.split('-')[0]=='ja') {
+      transTitle = "アラート";
+      subtitle = alertTrans[0]['You are just near to '+to+'. You don\'t need to ride a jeepney.'];
+    }
+    else {
+      transTitle = "Alert";
+      subtitle = 'You are just near to '+to+'. You don\'t need to ride a jeepney.';
+    }
+
     var me = this;
     let alert = me.alert.create({
-      title: 'Alert',
-      subTitle: 'You are just near to '+to+'. You don\'t need to ride a jeepney.',
+      title: transTitle,
+      subTitle: subtitle,
       buttons: ['OK']
     });
     alert.present();
